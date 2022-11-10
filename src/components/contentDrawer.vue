@@ -62,9 +62,6 @@ export default defineComponent({
       products: this.$store.state.storeCart.products,
     };
   },
-  mounted() {
-    console.log();
-  },
 });
 </script>
 

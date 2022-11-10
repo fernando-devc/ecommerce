@@ -111,6 +111,104 @@
                     required
                   />
                 </div>
+                <div class="section-select row">
+                  <label for="cvv">Parcelamento</label>
+                  <select class="select">
+                    <option>Parcelamento</option>
+                    <option>
+                      1x de
+                      {{
+                        handlechangeparcela(1).toLocaleString("pt-br", {
+                          style: "currency",
+                          currency: "BRL",
+                        })
+                      }}
+                    </option>
+                    <optgroup v-if="parseInt(valor) > 50">
+                      <option>
+                        2x de
+                        {{
+                          handlechangeparcela(2).toLocaleString("pt-br", {
+                            style: "currency",
+                            currency: "BRL",
+                          })
+                        }}
+                      </option>
+                      <option>
+                        3x de
+                        {{
+                          handlechangeparcela(3).toLocaleString("pt-br", {
+                            style: "currency",
+                            currency: "BRL",
+                          })
+                        }}
+                      </option>
+                      <option>
+                        4x de
+                        {{
+                          handlechangeparcela(4).toLocaleString("pt-br", {
+                            style: "currency",
+                            currency: "BRL",
+                          })
+                        }}
+                      </option>
+                      <option>
+                        5x de
+                        {{
+                          handlechangeparcela(5).toLocaleString("pt-br", {
+                            style: "currency",
+                            currency: "BRL",
+                          })
+                        }}
+                      </option>
+                      <option>
+                        6x de
+                        {{
+                          handlechangeparcela(6).toLocaleString("pt-br", {
+                            style: "currency",
+                            currency: "BRL",
+                          })
+                        }}
+                      </option>
+                      <option>
+                        7x de
+                        {{
+                          handlechangeparcela(7).toLocaleString("pt-br", {
+                            style: "currency",
+                            currency: "BRL",
+                          })
+                        }}
+                      </option>
+                      <option>
+                        8x de
+                        {{
+                          handlechangeparcela(8).toLocaleString("pt-br", {
+                            style: "currency",
+                            currency: "BRL",
+                          })
+                        }}
+                      </option>
+                      <option>
+                        9x de
+                        {{
+                          handlechangeparcela(9).toLocaleString("pt-br", {
+                            style: "currency",
+                            currency: "BRL",
+                          })
+                        }}
+                      </option>
+                      <option>
+                        10x de
+                        {{
+                          handlechangeparcela(10).toLocaleString("pt-br", {
+                            style: "currency",
+                            currency: "BRL",
+                          })
+                        }}
+                      </option>
+                    </optgroup>
+                  </select>
+                </div>
               </div>
             </div>
           </div>
@@ -127,7 +225,7 @@
         </form>
       </div>
     </div>
-
+    <!-- {{ valor }} -->
     <div class="col-25">
       <content-drawer :checkout="true" />
     </div>
@@ -140,6 +238,30 @@ import contentDrawer from "src/components/contentDrawer.vue";
 
 export default defineComponent({
   components: { contentDrawer },
+  data() {
+    return {
+      parc: true,
+    };
+  },
+  computed: {
+    valor() {
+      return this.$store.getters["storeCart/valorTotal"];
+    },
+  },
+  mounted() {
+    if (parseInt(this.valor) > 50) {
+      console.log("oi");
+      this.parc = true;
+    } else {
+      this.parc = false;
+    }
+  },
+  methods: {
+    handlechangeparcela(parc) {
+      let total = this.$store.getters["storeCart/valorTotal"];
+      return total / parc;
+    },
+  },
 });
 </script>
 
@@ -148,26 +270,26 @@ export default defineComponent({
   height: 100px;
 }
 .row {
-  display: -ms-flexbox; /* IE10 */
+  display: -ms-flexbox;
   display: flex;
-  -ms-flex-wrap: wrap; /* IE10 */
+  -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   margin: auto;
   max-width: 1400px;
 }
 
 .col-25 {
-  -ms-flex: 25%; /* IE10 */
+  -ms-flex: 25%;
   flex: 25%;
 }
 
 .col-50 {
-  -ms-flex: 50%; /* IE10 */
+  -ms-flex: 50%;
   flex: 50%;
 }
 
 .col-75 {
-  -ms-flex: 50%; /* IE10 */
+  -ms-flex: 50%;
   flex: 50%;
 }
 
@@ -220,16 +342,19 @@ label {
     box-shadow: 0 8px 16px 0 rgb(255 72 66 / 24%);
   }
 }
-.btn:hover {
-  background-color: #45a049;
+.section-select {
+  margin: 0;
+  width: 100%;
+  & > select {
+    width: 100%;
+    margin: 0;
+    background: #fff;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
 }
 
-span.price {
-  float: right;
-  color: grey;
-}
-
-/* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other (and change the direction - make the "cart" column go on top) */
 @media (max-width: 1141px) {
   .spacer {
   }
