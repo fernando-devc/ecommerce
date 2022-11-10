@@ -1,8 +1,11 @@
 <template>
   <div class="main">
-    <div class="title">
+    <div class="title" v-if="!checkout">
       <h4>Carrinho</h4>
       <q-icon name="shopping_cart" size="25px" />
+    </div>
+    <div class="total-product" v-if="checkout">
+      <h6>Total:</h6>
     </div>
     <div class="list-product">
       <item-cart-product
@@ -11,14 +14,14 @@
         :product="product"
       />
     </div>
-    <div class="total-product"></div>
-    <div class="actions-product">
+    <div class="total-product" v-if="!checkout"></div>
+    <div class="actions-product" v-if="!checkout">
       <q-btn
         class="btn_carrinho"
         flat
         icon-right="shopping_cart"
         title=""
-        @click.stop.prevent=""
+        @click.stop.prevent="$router.push('/checkout')"
         >Finalizar compra</q-btn
       >
     </div>
@@ -32,6 +35,9 @@ import ItemCartProduct from "./ItemCartProduct.vue";
 export default defineComponent({
   components: {
     ItemCartProduct,
+  },
+  props: {
+    checkout: Boolean,
   },
   data() {
     return {
@@ -76,6 +82,9 @@ export default defineComponent({
   & > .total-product {
     height: 80px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
   }
   & > .actions-product {
     padding-top: 10px;
