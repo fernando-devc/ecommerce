@@ -203,17 +203,6 @@ label {
   font-size: 24px;
 }
 
-.btn {
-  background-color: #04aa6d;
-  color: white;
-  padding: 12px;
-  margin: 10px 0;
-  border: none;
-  width: 100%;
-  border-radius: 3px;
-  cursor: pointer;
-  font-size: 17px;
-}
 .actions-product {
   padding-top: 10px;
   padding-bottom: 10px;

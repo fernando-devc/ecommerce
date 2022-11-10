@@ -5,7 +5,15 @@
       <q-icon name="shopping_cart" size="25px" />
     </div>
     <div class="total-product" v-if="checkout">
-      <h6>Total:</h6>
+      <h6>
+        Total:
+        {{
+          $store.getters["storeCart/valorTotal"].toLocaleString("pt-br", {
+            style: "currency",
+            currency: "BRL",
+          })
+        }}
+      </h6>
     </div>
     <div class="list-product">
       <item-cart-product
@@ -14,7 +22,17 @@
         :product="product"
       />
     </div>
-    <div class="total-product" v-if="!checkout"></div>
+    <div class="total-product" v-if="!checkout">
+      <h6>
+        Total:
+        {{
+          $store.getters["storeCart/valorTotal"].toLocaleString("pt-br", {
+            style: "currency",
+            currency: "BRL",
+          })
+        }}
+      </h6>
+    </div>
     <div class="actions-product" v-if="!checkout">
       <q-btn
         class="btn_carrinho"
@@ -45,7 +63,7 @@ export default defineComponent({
     };
   },
   mounted() {
-    console.log(this.products);
+    console.log();
   },
 });
 </script>
