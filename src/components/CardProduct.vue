@@ -28,7 +28,7 @@
         flat
         icon-right="shopping_cart"
         title=""
-        @click.stop.prevent=""
+        @click.stop.prevent="addtocart(item)"
         >Adicionar carrinho</q-btn
       >
     </q-card-actions>
@@ -54,6 +54,9 @@ export default defineComponent({
   methods: {
     routingProductPage: function (id) {
       this.$router.push("/product/" + id);
+    },
+    addtocart(product) {
+      this.$store.dispatch("storeCart/addProduct", product);
     },
   },
 });

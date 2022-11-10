@@ -4,7 +4,13 @@
       <h4>Carrinho</h4>
       <q-icon name="shopping_cart" size="25px" />
     </div>
-    <div class="list-product"></div>
+    <div class="list-product">
+      <item-cart-product
+        v-for="product in products"
+        v-bind:key="product.id"
+        :product="product"
+      />
+    </div>
     <div class="total-product"></div>
     <div class="actions-product">
       <q-btn
@@ -20,7 +26,22 @@
 </template>
 
 <script>
-export default {};
+import { defineComponent } from "vue";
+import ItemCartProduct from "./ItemCartProduct.vue";
+
+export default defineComponent({
+  components: {
+    ItemCartProduct,
+  },
+  data() {
+    return {
+      products: this.$store.state.storeCart.products,
+    };
+  },
+  mounted() {
+    console.log(this.products);
+  },
+});
 </script>
 
 <style scoped lang="scss">
@@ -30,6 +51,7 @@ export default {};
   display: flex;
   padding: 1px 10px 20px 10px;
   flex-direction: column;
+  gap: 10px;
   & > .title {
     display: flex;
     justify-content: center;
@@ -38,13 +60,18 @@ export default {};
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   }
   & > .title > h4 {
-    line-height: 1rem;
+    line-height: 0.001rem;
   }
   & > .list-product {
     flex: 1;
     flex-direction: column;
     display: flex;
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    width: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    padding: 20px 0 20px 0;
+    gap: 15px;
   }
   & > .total-product {
     height: 80px;

@@ -29,7 +29,7 @@ export default defineComponent({
 
   setup() {
     return {
-      cart: ref(false),
+      cart: ref(true),
       toggleRightDrawer() {
         cart.value = !cart.value;
       },

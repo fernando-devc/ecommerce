@@ -28,7 +28,7 @@
         flat
         icon-right="shopping_cart"
         title=""
-        @click.stop.prevent=""
+        @click.stop.prevent="addtocart(product)"
         class="cart-btn"
       >
         Adicionar
@@ -63,6 +63,11 @@ export default defineComponent({
       });
     };
     load();
+  },
+  methods: {
+    addtocart(product) {
+      this.$store.dispatch("storeCart/addProduct", product);
+    },
   },
 });
 </script>
