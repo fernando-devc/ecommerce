@@ -1,7 +1,7 @@
 <template>
   <q-header class="header">
     <q-toolbar class="padding">
-      <q-toolbar-title @click="$router.push('/')" style="cursor: pointer">
+      <q-toolbar-title>
         <q-btn
           dense
           icon="home"
@@ -17,7 +17,11 @@
         dense
         icon="shopping_cart"
         @click="$emit('update:cart', !cart)"
-      />
+      >
+        <q-badge color="red" rounded floating>{{
+          $store.state.storeCart.products.length
+        }}</q-badge>
+      </q-btn>
     </q-toolbar>
   </q-header>
 </template>

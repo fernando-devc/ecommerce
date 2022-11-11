@@ -21,6 +21,7 @@
     <div class="actions">
       <q-btn
         rounded
+        v-if="!succes"
         flat
         dense
         icon="delete"
@@ -42,6 +43,16 @@ export default defineComponent({
   },
   props: {
     product: {},
+  },
+
+  computed: {
+    succes() {
+      if (this.$route.path === "/success") {
+        return true;
+      } else {
+        return false;
+      }
+    },
   },
   methods: {
     removetocart(product) {

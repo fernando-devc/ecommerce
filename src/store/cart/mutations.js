@@ -9,9 +9,17 @@ export function increment(state, payload) {
   } else {
     state.products.push(newValue);
   }
-  console.log(state);
 }
 export function remove(state, payload) {
   const exist = state.products.find((o) => o.id === payload.id);
   state.products.splice(state.products.indexOf(exist), 1);
+}
+
+export function clearCart(state) {
+  state.products = [];
+  state.transaction = {};
+}
+
+export function addtransaction(state, payload) {
+  state.transaction = payload;
 }

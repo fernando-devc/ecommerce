@@ -59,7 +59,6 @@ export default defineComponent({
       const params = this.$route.params.slug;
       await api.get("products/" + params).then((res) => {
         this.product = res.data;
-        console.log(res.data);
       });
     };
     load();

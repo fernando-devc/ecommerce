@@ -10,6 +10,11 @@ const routes = [
     children: [{ path: "", component: () => import("pages/checkoutPage.vue") }],
   },
   {
+    path: "/success",
+    component: () => import("layouts/MainLayout.vue"),
+    children: [{ path: "", component: () => import("pages/successPage.vue") }],
+  },
+  {
     path: "/product/:slug",
     component: () => import("layouts/MainLayout.vue"),
     children: [{ path: "", component: () => import("pages/ProductPage.vue") }],

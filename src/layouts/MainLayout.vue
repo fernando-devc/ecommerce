@@ -3,13 +3,13 @@
     <header-home :cart="cart" @update:cart="(newvalue) => (cart = newvalue)" />
     <q-drawer
       v-model="cart"
-      width="500"
       show-if-above
       side="right"
       bordered
       behavior="mobile"
+      class="drawer"
     >
-      <content-drawer></content-drawer>
+      <content-drawer @handleDrawer="toggleRightDrawer()"></content-drawer>
     </q-drawer>
     <q-page-container class="page">
       <router-view />
@@ -31,7 +31,7 @@ export default defineComponent({
     return {
       cart: ref(false),
       toggleRightDrawer() {
-        cart.value = !cart.value;
+        this.cart = !this.cart;
       },
     };
   },
@@ -45,5 +45,13 @@ export default defineComponent({
 .page-global {
   max-width: 1400px;
   margin: 0 auto;
+}
+.q-drawer {
+  width: 500px !important;
+}
+@media (max-width: 900px) {
+  .q-drawer {
+    width: 100% !important;
+  }
 }
 </style>

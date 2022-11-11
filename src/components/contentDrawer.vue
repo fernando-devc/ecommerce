@@ -1,6 +1,13 @@
 <template>
   <div class="main">
     <div class="title" v-if="!checkout">
+      <q-btn
+        icon="close"
+        rounded
+        dense
+        color="red"
+        @click.stop.prevent="handleDrawer()"
+      />
       <h4>Carrinho</h4>
       <q-icon name="shopping_cart" size="25px" />
     </div>
@@ -56,11 +63,17 @@ export default defineComponent({
   },
   props: {
     checkout: Boolean,
+    success: Boolean,
   },
-  data() {
-    return {
-      products: this.$store.state.storeCart.products,
-    };
+  computed: {
+    products() {
+      return this.$store.state.storeCart.products;
+    },
+  },
+  methods: {
+    handleDrawer() {
+      this.$emit("handleDrawer");
+    },
   },
 });
 </script>

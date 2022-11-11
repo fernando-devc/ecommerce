@@ -3,7 +3,7 @@
   <div class="row">
     <div class="col-75">
       <div class="container">
-        <form action="/action_page.php">
+        <form v-on:submit="handlesubmit">
           <div class="row">
             <div class="col-50">
               <h3>Informações</h3>
@@ -11,7 +11,7 @@
               <input
                 type="text"
                 id="fname"
-                name="firstname"
+                name="fullname"
                 placeholder="Fernando Costa"
                 required
               />
@@ -113,9 +113,9 @@
                 </div>
                 <div class="section-select row">
                   <label for="cvv">Parcelamento</label>
-                  <select class="select">
+                  <select class="select" name="quota">
                     <option>Parcelamento</option>
-                    <option>
+                    <option :value="'1x de ' + handlechangeparcela(1)">
                       1x de
                       {{
                         handlechangeparcela(1).toLocaleString("pt-br", {
@@ -125,7 +125,7 @@
                       }}
                     </option>
                     <optgroup v-if="parseInt(valor) > 50">
-                      <option>
+                      <option :value="'2x de ' + handlechangeparcela(2)">
                         2x de
                         {{
                           handlechangeparcela(2).toLocaleString("pt-br", {
@@ -134,7 +134,7 @@
                           })
                         }}
                       </option>
-                      <option>
+                      <option :value="'3x de ' + handlechangeparcela(3)">
                         3x de
                         {{
                           handlechangeparcela(3).toLocaleString("pt-br", {
@@ -143,7 +143,7 @@
                           })
                         }}
                       </option>
-                      <option>
+                      <option :value="'4x de ' + handlechangeparcela(4)">
                         4x de
                         {{
                           handlechangeparcela(4).toLocaleString("pt-br", {
@@ -152,7 +152,7 @@
                           })
                         }}
                       </option>
-                      <option>
+                      <option :value="'5x de ' + handlechangeparcela(5)">
                         5x de
                         {{
                           handlechangeparcela(5).toLocaleString("pt-br", {
@@ -161,7 +161,7 @@
                           })
                         }}
                       </option>
-                      <option>
+                      <option :value="'6x de ' + handlechangeparcela(6)">
                         6x de
                         {{
                           handlechangeparcela(6).toLocaleString("pt-br", {
@@ -170,7 +170,7 @@
                           })
                         }}
                       </option>
-                      <option>
+                      <option :value="'7x de ' + handlechangeparcela(7)">
                         7x de
                         {{
                           handlechangeparcela(7).toLocaleString("pt-br", {
@@ -179,7 +179,7 @@
                           })
                         }}
                       </option>
-                      <option>
+                      <option :value="'8x de ' + handlechangeparcela(8)">
                         8x de
                         {{
                           handlechangeparcela(8).toLocaleString("pt-br", {
@@ -188,7 +188,7 @@
                           })
                         }}
                       </option>
-                      <option>
+                      <option :value="'9x de ' + handlechangeparcela(9)">
                         9x de
                         {{
                           handlechangeparcela(9).toLocaleString("pt-br", {
@@ -197,7 +197,7 @@
                           })
                         }}
                       </option>
-                      <option>
+                      <option :value="'10x de ' + handlechangeparcela(10)">
                         10x de
                         {{
                           handlechangeparcela(10).toLocaleString("pt-br", {
@@ -218,7 +218,7 @@
               flat
               icon-right="shopping_cart"
               title=""
-              @click.stop.prevent="$router.push('/checkout')"
+              type="submit"
               >Comprar
             </q-btn>
           </div>
@@ -250,7 +250,6 @@ export default defineComponent({
   },
   mounted() {
     if (parseInt(this.valor) > 50) {
-      console.log("oi");
       this.parc = true;
     } else {
       this.parc = false;
@@ -260,6 +259,29 @@ export default defineComponent({
     handlechangeparcela(parc) {
       let total = this.$store.getters["storeCart/valorTotal"];
       return total / parc;
+    },
+    handlesubmit(event) {
+      event.preventDefault();
+      const form = new FormData(event.target);
+      const transaction = {
+        fullname: form.get("fullname"),
+        email: form.get("email"),
+        address: form.get("addres"),
+        city: form.get("city"),
+        state: form.get("state"),
+        zip: form.get("zip"),
+        quota: form.get("quota").toLocaleString("pt-br", {
+          style: "currency",
+          currency: "BRL",
+        }),
+        card: {
+          cardname: form.get("cardname"),
+          cardnumber: form.get("cardnumber"),
+        },
+        products: this.$store.state.storeCart.products,
+      };
+      this.$store.dispatch("storeCart/addtransaction", transaction);
+      this.$router.push("/success");
     },
   },
 });
